@@ -1,5 +1,5 @@
-
 import serial
+import time
 
 def Forward():
     ser.write("F".encode('ascii'))
@@ -20,26 +20,46 @@ def stop():
 def main():
 
     while True:
-        x = input("Forward/Backward/Counter-Clockwise/Clockwise? F/B/L/R/S \n").upper()
+        
+        x = input("Forward/Backward/Left/Right/Measurements? F/B/L/R/S/M \n").upper()
+ 
         if (x == 'F'):
             Forward()
+            time.sleep(1)
+            stop()
             main()
         elif ( x == 'B'):
             Backward()
+            time.sleep(1)
+            stop()
             main()
             
         elif ( x == 'L'):
             Left()
+            time.sleep(1)
+            stop()
             main()
             
         elif ( x == 'R'):
             Right()
-            main()
-        elif ( x == 'S'):
+            time.sleep(1)
             stop()
             main()
+#         elif ( x == 'S'):
+#             stop()
+#             main()
+        elif ( x == 'M'):
+            ser.write("M".encode('ascii'))
+            incomingByte = ser.readline().decode('utf-8').rstrip()
+            print(incomingByte)
+
+                    
+            
         else:
             print("Invalid Input\n")
+            
+
+            
     
 
 if __name__ == '__main__':
